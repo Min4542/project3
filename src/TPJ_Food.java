@@ -76,28 +76,25 @@ public class TPJ_Food {
         System.out.printf("%s 사장님의 상호명 [%s] 입니다.\n", user[2][idx], market[idx]);
         System.out.println("변경하실 상호명을 입력하세요.");
         String[] temp = new String[user.length];
-        String marketName = market[idx];
+        String marketName;
         String changemarketName;
+        System.out.print(">>");
+        changemarketName = sc.next();
         int changeidx = 0;
         for (int i = 0; i < market.length; i++) {
-            if (marketName.equals(market[idx])) {
+            if (changemarketName.equals(market[idx])) {
                 changeidx = i;
                 break;
             }
         }
-        System.out.print(">>");
-        changemarketName = sc.next();
 
-        for (int i = changeidx; i < temp.length; i++) {
-            market[changeidx] = changemarketName;
 
-        }
-        for (int i = 0; i < temp.length; i++) {
-            temp[i] = market[i];
-        }
-        market = temp;
-        temp = null;
+            market[changeidx+1] = changemarketName;
+
         System.out.println(Arrays.toString(market));
+
+
+
     }
 
     // 초기 메세지 메소드
@@ -439,7 +436,7 @@ public class TPJ_Food {
                                 break;
                             case 1: // 상호명 변경
                                 changeName();
-
+                                continue;
                             case 2: //메뉴판 수정
 //                                < ========================== >
                             case 3://매출관리
