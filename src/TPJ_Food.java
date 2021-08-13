@@ -21,14 +21,13 @@ public class TPJ_Food {
     // 사용자의 ID, PW, Name의 배열
     static String[][] user = {
             {"id1", "id2", "id3"},
-            {"pw1", "pw1", "pw3"},
+            {"pw1", "pw2", "pw3"},
             {"사장님1", "사장님2", "사장님3"}
     };
 
     //신규음식점 등록배열
     // idx = user
-    static java.lang.String[] market =
-            {"떡볶이", "오뎅", "김말이"};
+    static java.lang.String[] market = {" ", " ", " "};
 
     //메뉴 목록
     static String[][] menu = {
@@ -210,6 +209,7 @@ public class TPJ_Food {
                 if (user[1][i].equals(PW)) {
                     passPW = 1;
                     userInfor = i;
+                    idx = i;
                     break;
                 } else passPW = 0;
             }
@@ -250,18 +250,18 @@ public class TPJ_Food {
         System.out.println("신규 음식점 이름을 입력해주세요.");
         String newFoodMarket = sc.next();
 
-        String[] temp1 = new String[market.length + 1];
+        String[] temp1 = new String[market.length];
         int i = 0;
         for (i = 0; i < temp1.length; i++) {
-            temp1[idx] = market[idx];
+            temp1[i] = market[i];
         }
 
-        temp1[temp1.length - 1] = newFoodMarket;
-
+        temp1[idx] = newFoodMarket;
+        System.out.println(Arrays.toString(temp1));
         market = temp1;
         temp1 = null;
-
-        System.out.printf("%s 사장님의 %s 식당이 개업되었습니다.\n", user[2][i], market[i]);
+        System.out.println(Arrays.toString(market));
+        System.out.printf("%s 사장님의 %s 식당이 개업되었습니다.\n", user[2][idx], market[idx]);
         System.out.printf("사장님의 성공을 항상 기원합니다.\n");
 
     }
@@ -337,7 +337,7 @@ public class TPJ_Food {
             }//end outer for
             //잘못 입력했을 시
             if (!corMenuName) {
-                if(!menuName.equals("0")) {
+                if (!menuName.equals("0")) {
                     System.out.println("\n다시 입력해주세요");
                     continue;
                 }
@@ -348,7 +348,7 @@ public class TPJ_Food {
 
             //0을 입력했을 시 총 수익과 함께 종료
             if (menuName.equals("0")) {
-                corMenuName= true;
+                corMenuName = true;
                 System.out.printf("%s\n", setTime1);
                 System.out.printf("현 시간 매출: %d\n", total);
                 break;
