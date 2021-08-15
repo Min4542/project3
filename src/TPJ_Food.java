@@ -78,21 +78,23 @@ public class TPJ_Food {
         int cmi2 = 0;
         boolean correct = false;
 
+
         while (true) {
-            System.out.println(Arrays.toString(menu[idx]));
+            for (int i = 0; i < user.length; i++) {
+
+            }
             System.out.println("수정할 메뉴 이름을 입려해주세요.");
             System.out.print(">>>");
             String menuName = sc.next();
 
 
-            for (int i = 0; i < menu.length; i++) {
-                for (int j = 0; j < menu.length; j++)
-                    if (menuName.equals(menu[i][j])) {
-                        cmi = i;
-                        cmi2 = j;
-                        correct = true;
-                        break;
-                    }
+            for (int i = 0; i < menu.length - 1; i++) {
+                if (menuName.equals(menu[idx][i])) {
+                    cmi = idx;
+                    cmi2 = i;
+                    correct = true;
+                    break;
+                }
 
             }
             if (!correct) {
@@ -122,23 +124,15 @@ public class TPJ_Food {
     static void changeName() {
         System.out.printf("%s 사장님의 상호명 [%s] 입니다.\n", user[2][idx], market[idx]);
         System.out.println("변경하실 상호명을 입력하세요.");
-        String[] temp = new String[user.length];
-        String marketName;
+
         String changemarketName;
         System.out.print(">>");
         changemarketName = sc.next();
-        int changeidx = 0;
-        for (int i = 0; i < market.length; i++) {
-            if (changemarketName.equals(market[idx])) {
-                changeidx = i;
-                break;
-            }
-        }
 
 
-        market[changeidx + 1] = changemarketName;
+        market[idx] = changemarketName;
 
-        System.out.println(Arrays.toString(market));
+        System.out.println(Arrays.toString(new String[]{market[idx]})+"으로 수정됨");
 
 
     }
@@ -178,7 +172,7 @@ public class TPJ_Food {
         }
 
         if (passNum == 0) {
-            System.out.println("");
+
             System.out.println("사용하실 비밀번호를 입력해주세요.");
             System.out.print(">> ");
             String newPW = sc.next();
@@ -193,21 +187,40 @@ public class TPJ_Food {
             firstRegister = true;
 
             String temp[][] = new String[user.length + 1][user.length + 1];
+            String temp1[][] = new String[user.length + 1][user.length + 1];
             for (int i = 0; i < user.length; i++) {
                 temp[0][i] = user[0][i];
                 temp[1][i] = user[1][i];
                 temp[2][i] = user[2][i];
+
+                temp1[0][i] = menu[0][i];
+                temp1[1][i] = menu[1][i];
+                temp1[2][i] = menu[2][i];
+
+
             }
+
 
             temp[0][temp.length - 1] = newID;
             temp[1][temp.length - 1] = newPW;
             temp[2][temp.length - 1] = userName;
 
+            temp1[user.length][0] = "아무거나1";
+            temp1[user.length][1] = "아무거나2";
+            temp1[user.length][2] = "아무거나3";
+
+            menu = temp1;
+            temp1 = null;
+
             user = temp;
             temp = null;
 
-            System.out.println(Arrays.toString(user[0]));
-            System.out.println(Arrays.toString(user[1]));
+//            System.out.println();
+//            System.out.println(Arrays.toString(user[0]));
+//            System.out.println(Arrays.toString(user[1]));
+//            System.out.println(Arrays.toString(menu[menu.length-1]));
+
+
         }
     }
 
@@ -226,15 +239,15 @@ public class TPJ_Food {
     //로그인 메소드
     static void login() {
         // 비밀번호를 통과시키기 위한 번호
-        String ID ="";
+        String ID = "";
         while (true) {
             System.out.print("ID >> ");
-             ID = sc.next();
+            ID = sc.next();
             int passNum = 0;
             for (int i = 0; i < user.length; i++) {
                 if (user[0][i].equals(ID)) {
                     passNum = 1;
-                    idx=i;
+                    idx = i;
                     break;
                 } else passNum = 0;
             }
@@ -246,33 +259,33 @@ public class TPJ_Food {
         } // end while 1
         System.out.println("비밀번호를 입력하세요.");
 
-            while (true) {
-                // 비밀번호를 통과시키기 위한 번호
-                int passPW = 0;
-                System.out.print("PW >> ");
-                String PW = sc.next();
-                if (!PW.equals(user[1][idx])){
-                    System.out.println("비밀번호가 맞지않습니다.");
-                    continue;
-                }
-                for (int i = 0; i < user.length; i++) {
-                    if (user[1][i].equals(PW)) {
-                        passPW = 1;
-                        userInfor = i;
-                        idx = i;
-                        break;
-                    } else passPW = 0;
-                }
-
-                if (passPW == 1) {
-                    System.out.println();
-                    System.out.println("로그인에 성공하였습니다.");
-                    System.out.println(user[2][userInfor] + " 사장님 접속을 환영합니다.");
-                    break;
-                } else {
-                    System.out.println("비밀번호를 다시 입력해주세요.");
-                }
+        while (true) {
+            // 비밀번호를 통과시키기 위한 번호
+            int passPW = 0;
+            System.out.print("PW >> ");
+            String PW = sc.next();
+            if (!PW.equals(user[1][idx])) {
+                System.out.println("비밀번호가 맞지않습니다.");
+                continue;
             }
+            for (int i = 0; i < user.length; i++) {
+                if (user[1][i].equals(PW)) {
+                    passPW = 1;
+                    userInfor = i;
+                    idx = i;
+                    break;
+                } else passPW = 0;
+            }
+
+            if (passPW == 1) {
+                System.out.println();
+                System.out.println("로그인에 성공하였습니다.");
+                System.out.println(user[2][userInfor] + " 사장님 접속을 환영합니다.");
+                break;
+            } else {
+                System.out.println("비밀번호를 다시 입력해주세요.");
+            }
+        }
     }
 
 
@@ -300,9 +313,11 @@ public class TPJ_Food {
         System.out.println("신규 음식점 이름을 입력해주세요.");
         String newFoodMarket = sc.next();
 
-        String[] temp1 = new String[market.length];
+        String[] temp1 = new String[user.length];
+
+
         int i = 0;
-        for (i = 0; i < temp1.length; i++) {
+        for (i = 0; i < market.length; i++) {
             temp1[i] = market[i];
         }
 
@@ -320,7 +335,7 @@ public class TPJ_Food {
     private static void salesManagement(String setTime1) {
         while (true) {
             //해당 점포의 메뉴 띄우기
-            int total =0;
+            int total = 0;
             String selectUser = user[2][userInfor];
             for (int j = 0; j < user.length; j++) {
                 if (selectUser.equals(user[2][j])) {
