@@ -226,13 +226,15 @@ public class TPJ_Food {
     //로그인 메소드
     static void login() {
         // 비밀번호를 통과시키기 위한 번호
+        String ID ="";
         while (true) {
             System.out.print("ID >> ");
-            String ID = sc.next();
+             ID = sc.next();
             int passNum = 0;
             for (int i = 0; i < user.length; i++) {
                 if (user[0][i].equals(ID)) {
                     passNum = 1;
+                    idx=i;
                     break;
                 } else passNum = 0;
             }
@@ -243,29 +245,34 @@ public class TPJ_Food {
             } // end if
         } // end while 1
         System.out.println("비밀번호를 입력하세요.");
-        while (true) {
-            // 비밀번호를 통과시키기 위한 번호
-            int passPW = 0;
-            System.out.print("PW >> ");
-            String PW = sc.next();
-            for (int i = 0; i < user.length; i++) {
-                if (user[1][i].equals(PW)) {
-                    passPW = 1;
-                    userInfor = i;
-                    idx = i;
-                    break;
-                } else passPW = 0;
-            }
 
-            if (passPW == 1) {
-                System.out.println();
-                System.out.println("로그인에 성공하였습니다.");
-                System.out.println(user[2][userInfor] + " 사장님 접속을 환영합니다.");
-                break;
-            } else {
-                System.out.println("비밀번호를 다시 입력해주세요.");
+            while (true) {
+                // 비밀번호를 통과시키기 위한 번호
+                int passPW = 0;
+                System.out.print("PW >> ");
+                String PW = sc.next();
+                if (!PW.equals(user[1][idx])){
+                    System.out.println("비밀번호가 맞지않습니다.");
+                    continue;
+                }
+                for (int i = 0; i < user.length; i++) {
+                    if (user[1][i].equals(PW)) {
+                        passPW = 1;
+                        userInfor = i;
+                        idx = i;
+                        break;
+                    } else passPW = 0;
+                }
+
+                if (passPW == 1) {
+                    System.out.println();
+                    System.out.println("로그인에 성공하였습니다.");
+                    System.out.println(user[2][userInfor] + " 사장님 접속을 환영합니다.");
+                    break;
+                } else {
+                    System.out.println("비밀번호를 다시 입력해주세요.");
+                }
             }
-        }
     }
 
 
@@ -313,6 +320,7 @@ public class TPJ_Food {
     private static void salesManagement(String setTime1) {
         while (true) {
             //해당 점포의 메뉴 띄우기
+            int total =0;
             String selectUser = user[2][userInfor];
             for (int j = 0; j < user.length; j++) {
                 if (selectUser.equals(user[2][j])) {
