@@ -77,46 +77,126 @@ public class TPJ_Food {
         int cmi = 0;
         int cmi2 = 0;
         boolean correct = false;
+        int select = 0;
+        String MN;
+        int CP;
 
+        System.out.println("메뉴판 설정");
+        System.out.println("1. 가격변경");
+        System.out.println("2. 매뉴이름 변경");
+        System.out.println("3. 메뉴추가");
+        select = sc.nextInt();
 
-        while (true) {
-            for (int i = 0; i < user.length; i++) {
+        switch (select) {
 
-            }
-            System.out.println("수정할 메뉴 이름을 입려해주세요.");
-            System.out.print(">>>");
-            String menuName = sc.next();
+            case 1:
+                int MI = 0;
+                System.out.println(Arrays.toString(menu[idx]));
+                System.out.println(Arrays.toString(price[idx]));
+                System.out.println("가격을 변경할 메뉴를 입력해주세요.");
+                MN = sc.next();
 
+                for (int i = 0; i < user.length; i++) {
+                    if(MN.equals(menu[idx][i])){
+                        MI = i;
+                        System.out.println("메뉴 감지 ");
+                        break;
+                    }
 
-            for (int i = 0; i < menu.length - 1; i++) {
-                if (menuName.equals(menu[idx][i])) {
-                    cmi = idx;
-                    cmi2 = i;
-                    correct = true;
-                    break;
                 }
 
-            }
-            if (!correct) {
-                System.out.println("메뉴목록에 메뉴가 등록되어 있지 않습니다.");
-                System.out.println("다시 입력해주세요.");
-                continue;
-            }
+                System.out.println(MI);
+                System.out.println("원래 가격 :" + price[idx][MI]);
+                System.out.println("변경할 가격을 입력하세요");
+                CP = sc.nextInt();
 
-            if (correct) {
-                System.out.println("수정할 메뉴 이름을 입력해주세요.");
-                System.out.print(">>");
-                changeMenuname = sc.next();
+                price[idx][MI] = CP;
+                System.out.println(Arrays.toString(menu[idx]));
+                System.out.println(Arrays.toString(price[idx]));
+
+                System.out.println("수정된 가격 :" + price[idx][MI]);
+                break;
+            case 2:
+                while (true) {
+
+                    System.out.println(Arrays.toString(menu[idx]));
+                    System.out.println("수정할 메뉴 이름을 입려해주세요.");
+                    System.out.print(">>>");
+                    String menuName = sc.next();
+
+
+                    for (int i = 0; i < menu.length - 1; i++) {
+                        if (menuName.equals(menu[idx][i])) {
+                            cmi = idx;
+                            cmi2 = i;
+                            correct = true;
+                            break;
+                        }
+
+                    }
+                    if (!correct) {
+                        System.out.println("메뉴목록에 메뉴가 등록되어 있지 않습니다.");
+                        System.out.println("다시 입력해주세요.");
+                        continue;
+                    }
+
+                    if (correct) {
+                        System.out.println("수정할 메뉴 이름을 입력해주세요.");
+                        System.out.print(">>");
+                        changeMenuname = sc.next();
+                        break;
+
+                    }
+                }
+
+
+                menu[cmi][cmi2] = changeMenuname;
+
+
+                System.out.println(Arrays.toString(menu[idx]) + "으로 수정되었습니다.");
                 break;
 
-            }
+            case 3:
+                System.out.println("추가할 메뉴 이름을 입력하세요");
+                String NMN = sc.next();
+                int mi=0;
+                boolean cm =false;
+                for (int f = 0; f < user.length; f++) {
+                    if(NMN.equals(menu[idx][f])){
+                        mi =f;
+                        cm =true;
+                        break;
+                    }
+                }
+
+                System.out.println("추가 메뉴의 가격을 입력하세요");
+                int NMP = sc.nextInt();
+
+                int[][] temp1 = new int[user.length ][user.length+1 ];
+                String[][] temp2 = new String[user.length ][user.length+1 ];
+
+                for (int i = 0; i < user.length; i++) {
+                    for (int j = 0; j < user.length ; j++) {
+                        temp1[i][j] = price[i][j];
+                        temp2[i][j] = menu[i][j];
+                    }
+                }
+
+                temp2[idx][user.length] = NMN;
+                temp1[idx][user.length] = NMP;
+
+                price=temp1;
+                menu =temp2;
+
+                temp1=null;
+                temp2=null;
+
+                System.out.println(Arrays.toString(menu[idx]));
+                System.out.println(Arrays.toString(price[idx]));
+
+
+
         }
-
-
-        menu[cmi][cmi2] = changeMenuname;
-
-
-        System.out.println(Arrays.toString(menu[idx]) + "으로 수정되었습니다.");
 
 
     }
@@ -132,7 +212,7 @@ public class TPJ_Food {
 
         market[idx] = changemarketName;
 
-        System.out.println(Arrays.toString(new String[]{market[idx]})+"으로 수정됨");
+        System.out.println(Arrays.toString(new String[]{market[idx]}) + "으로 수정됨");
 
 
     }
