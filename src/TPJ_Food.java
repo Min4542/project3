@@ -72,6 +72,53 @@ public class TPJ_Food {
 
     //메소드 선언
 
+    static void changemenuName() {
+        String changeMenuname = "";
+        int cmi = 0;
+        int cmi2 = 0;
+        boolean correct = false;
+
+        while (true) {
+            System.out.println(Arrays.toString(menu[idx]));
+            System.out.println("수정할 메뉴 이름을 입려해주세요.");
+            System.out.print(">>>");
+            String menuName = sc.next();
+
+
+            for (int i = 0; i < menu.length; i++) {
+                for (int j = 0; j < menu.length; j++)
+                    if (menuName.equals(menu[i][j])) {
+                        cmi = i;
+                        cmi2 = j;
+                        correct = true;
+                        break;
+                    }
+
+            }
+            if (!correct) {
+                System.out.println("메뉴목록에 메뉴가 등록되어 있지 않습니다.");
+                System.out.println("다시 입력해주세요.");
+                continue;
+            }
+
+            if (correct) {
+                System.out.println("수정할 메뉴 이름을 입력해주세요.");
+                System.out.print(">>");
+                changeMenuname = sc.next();
+                break;
+
+            }
+        }
+
+
+        menu[cmi][cmi2] = changeMenuname;
+
+
+        System.out.println(Arrays.toString(menu[idx]) + "으로 수정되었습니다.");
+
+
+    }
+
     static void changeName() {
         System.out.printf("%s 사장님의 상호명 [%s] 입니다.\n", user[2][idx], market[idx]);
         System.out.println("변경하실 상호명을 입력하세요.");
@@ -89,10 +136,9 @@ public class TPJ_Food {
         }
 
 
-            market[changeidx+1] = changemarketName;
+        market[changeidx + 1] = changemarketName;
 
         System.out.println(Arrays.toString(market));
-
 
 
     }
@@ -438,7 +484,8 @@ public class TPJ_Food {
                                 changeName();
                                 continue;
                             case 2: //메뉴판 수정
-//                                < ========================== >
+                                changemenuName();
+                                break;
                             case 3://매출관리
                                 salesManagement(setTime1);
                                 continue;
