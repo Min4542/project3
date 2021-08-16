@@ -71,8 +71,9 @@ public class TPJ_Food {
 //    ===================================================================================
 
     //메소드 선언
-
+    static int kl = 0;
     static void changemenuName() {
+
         String changeMenuname = "";
         int cmi = 0;
         int cmi2 = 0;
@@ -91,13 +92,13 @@ public class TPJ_Food {
 
             case 1:
                 int MI = 0;
-                System.out.println(Arrays.toString(menu[idx]));
-                System.out.println(Arrays.toString(price[idx]));
+                System.out.println(Arrays.toString(menu[idx-1]));
+                System.out.println(Arrays.toString(price[idx-1]));
                 System.out.println("가격을 변경할 메뉴를 입력해주세요.");
                 MN = sc.next();
 
                 for (int i = 0; i < user.length; i++) {
-                    if(MN.equals(menu[idx][i])){
+                    if (MN.equals(menu[idx][i])) {
                         MI = i;
                         System.out.println("메뉴 감지 ");
                         break;
@@ -125,7 +126,7 @@ public class TPJ_Food {
                     String menuName = sc.next();
 
 
-                    for (int i = 0; i < menu.length - 1; i++) {
+                    for (int i = 0; i <= menu.length; i++) {
                         if (menuName.equals(menu[idx][i])) {
                             cmi = idx;
                             cmi2 = i;
@@ -144,6 +145,7 @@ public class TPJ_Food {
                         System.out.println("수정할 메뉴 이름을 입력해주세요.");
                         System.out.print(">>");
                         changeMenuname = sc.next();
+
                         break;
 
                     }
@@ -157,45 +159,45 @@ public class TPJ_Food {
                 break;
 
             case 3:
+                int[][] temp1 = new int[idx+1][3+kl];
+                String[][] temp2 = new String[idx+1][3+kl];
                 System.out.println("추가할 메뉴 이름을 입력하세요");
                 String NMN = sc.next();
-                int mi=0;
-                boolean cm =false;
-                for (int f = 0; f < user.length; f++) {
-                    if(NMN.equals(menu[idx][f])){
-                        mi =f;
-                        cm =true;
-                        break;
-                    }
-                }
 
                 System.out.println("추가 메뉴의 가격을 입력하세요");
                 int NMP = sc.nextInt();
 
-                int[][] temp1 = new int[user.length ][user.length+1 ];
-                String[][] temp2 = new String[user.length ][user.length+1 ];
 
-                for (int i = 0; i < user.length; i++) {
-                    for (int j = 0; j < user.length ; j++) {
-                        temp1[i][j] = price[i][j];
-                        temp2[i][j] = menu[i][j];
+                for (int jk = 0; jk <idx ; jk++) {
+                    for (int d = 0; d <price.length-kl; d++) {
+                        temp1[jk][d] = price[jk][d];
+                        temp2[jk][d] = menu[jk][d];
+
                     }
+
                 }
 
-                temp2[idx][user.length] = NMN;
-                temp1[idx][user.length] = NMP;
+                temp2[idx][kl] = NMN;
+                temp1[idx][kl] = NMP;
 
-                price=temp1;
-                menu =temp2;
 
-                temp1=null;
-                temp2=null;
+                price = temp1;
+                menu = temp2;
+
+                temp1 = null;
+                temp2 = null;
+
+
+
 
                 System.out.println(Arrays.toString(menu[idx]));
                 System.out.println(Arrays.toString(price[idx]));
 
+                kl++;
+                break;
 
-
+            default:
+                throw new IllegalStateException("Unexpected value: " + select);
         }
 
 
@@ -266,16 +268,12 @@ public class TPJ_Food {
             System.out.println("회원가입이 성공적으로 완료되었습니다!");
             firstRegister = true;
 
-            String temp[][] = new String[user.length + 1][user.length + 1];
-            String temp1[][] = new String[user.length + 1][user.length + 1];
+            String temp[][] = new String[user.length+1 ][user.length + 1];
+
             for (int i = 0; i < user.length; i++) {
                 temp[0][i] = user[0][i];
                 temp[1][i] = user[1][i];
                 temp[2][i] = user[2][i];
-
-                temp1[0][i] = menu[0][i];
-                temp1[1][i] = menu[1][i];
-                temp1[2][i] = menu[2][i];
 
 
             }
@@ -285,20 +283,13 @@ public class TPJ_Food {
             temp[1][temp.length - 1] = newPW;
             temp[2][temp.length - 1] = userName;
 
-            temp1[user.length][0] = "아무거나1";
-            temp1[user.length][1] = "아무거나2";
-            temp1[user.length][2] = "아무거나3";
-
-            menu = temp1;
-            temp1 = null;
 
             user = temp;
             temp = null;
 
-//            System.out.println();
-//            System.out.println(Arrays.toString(user[0]));
-//            System.out.println(Arrays.toString(user[1]));
-//            System.out.println(Arrays.toString(menu[menu.length-1]));
+            System.out.println();
+            System.out.println(Arrays.toString(user[0]));
+            System.out.println(Arrays.toString(user[1]));
 
 
         }
